@@ -51,7 +51,7 @@ export default function App() {
   const [search, SetSearch] = React.useState("");
   const [mapCountries, setMapCountries] = React.useState([]);
   const [mapZoom, setMapZoom] = React.useState(3);
-  // const [vaccineCountry, setInputVaccineCountry] = React.useState("vietnam");
+  const [vaccineCountry, setInputVaccineCountry] = React.useState("vietnam");
   const [mapCenter, setMapCenter] = React.useState({
     lat: 34.80746,
     lng: -40.4796,
@@ -120,10 +120,10 @@ export default function App() {
       });
   };
  
-    // const onVaccineChange = async (e) => {
-    //   const countryCode = e.target.value;  
-    //   setInputVaccineCountry(countryCode)
-    // }
+    const onVaccineChange = async (e) => {
+      const countryCode = e.target.value;  
+      setInputVaccineCountry(countryCode)
+    }
 
   
   const OnSearch = (query) => {
@@ -257,13 +257,13 @@ export default function App() {
           </div>
         </Route>
         <Route path="/vaccine" component={Vaccine}>
-          {/* <Vaccine 
+          <Vaccine 
           casesType={casesType} 
           countries={countries} 
           value={country} 
           onVaccineChange={onVaccineChange}
           vaccineCountry={vaccineCountry}
-          /> */}
+          />
         </Route>
         <Route path="/news" component={News}></Route>
       </Switch>
