@@ -1,0 +1,180 @@
+/* .leaflet-container {
+  width: 100%;
+  height: 100vh;
+} */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: auto;
+  width: 100%;
+  font-weight: bold !important;
+  /* background-color: rgba(197, 193, 193, 0.9); */
+}
+.App {
+  font-family: "Nunito";
+  margin: 50px 50px;
+}
+.margin {
+  margin: 0 50px 0 50px;
+}
+.background {
+  font-family: "Nunito";
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: #000000 0px 0px 8px -4px;
+  padding: 20px;
+}
+.img {
+  width: 30px;
+  height: 20px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.center {
+  display: flex;
+  font-family: "Nunito";
+  align-items: center;
+  margin-left: 10px;
+  /* justify-content: center; */
+  /* display: block; */
+}
+.background--Selected {
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: #000000 0px 0px 8px -4px;
+  padding: 10px;
+  font-family: "Nunito";
+}
+.InputLabel {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.img-selected {
+  width: 30px;
+  height: 20px;
+  object-fit: cover;
+  margin-right: 5px;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  height: 70px;
+}
+.navbar-brand {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+.navbar-position {
+  position: fixed; /*Cho menu cố định 1 vị trí với top và left*/
+  top: 0;
+  left: 0;
+  z-index: 100000;
+}
+.cursor {
+  font-family: "Nunito";
+  cursor: pointer;
+}
+.navbar-header {
+  margin-left: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-header i {
+  color: rgb(44, 35, 35);
+}
+.navbar-brand:hover {
+  color: rgb(107, 102, 102);
+}
+.App-logo {
+  height: 30px;
+  pointer-events: none;
+  margin-top: 35px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.img-news {
+  height: 400px;
+  width: 600px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.img-news--5k {
+  height: 800px;
+  width: 600px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.font-family {
+  font-family: "Nunito";
+}
+.containerVideo--hand {
+  margin-top: 29px;
+}
+.font-family-option {
+  font-family: "Nunito";
+  font-size: medium;
+}
+.search-sort {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: space-around; */
+  /* margin-right: 80px; */
+}
+/* map */
+map {
+  height: 500px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 20px;
+  margin-top: 16px;
+  box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+}
+
+.map .leaflet-container {
+  height: 100%;
+  border-radius: 12px;
+}
+
+.info-flag img {
+  width: 100px;
+  border-radius: 5px;
+}
+
+.info-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+}
+
+.info-container {
+  width: 150px;
+}
+
+.info-flag {
+  height: 80px;
+  width: 100%;
+  background-size: cover;
+  border-radius: 8px;
+}
+
+.info-confirmed,
+.info-recovered,
+.info-deaths {
+  font-size: 16px;
+  margin-top: 5px;
+  /* background-color: #df1f1f; */
+}
