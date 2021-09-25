@@ -1,13 +1,13 @@
-import { TextField, Box, FormControl } from "@material-ui/core";
+import { TextField, Box, FormControl,} from "@material-ui/core";
 import React, { Component } from "react";
 
-export default class Search extends Component {
+export default class SearchVaccine extends Component {
   state = {
     query: "",
   };
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
-      this.props.OnSearch(this.state.query);
+      this.props.OnSearchVaccine(this.state.query);
     }
   }
   shouldComponentUpdate(nextProps, nextState) {
@@ -23,6 +23,8 @@ export default class Search extends Component {
   };
   render() {
     return (
+    
+
       <FormControl>
         <Box
           component="form"
@@ -34,7 +36,6 @@ export default class Search extends Component {
         >
           <TextField
             id="outlined-basic"
-            // label="Search Country ..."
             variant="outlined"
             type="text"
             value={this.state.value}

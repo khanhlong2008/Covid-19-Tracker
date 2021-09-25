@@ -1,9 +1,7 @@
-
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
-// import moment from "moment";
 import { Button, ButtonGroup } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import VaccineSeletor from '../../CountrySelector/vaccine'
@@ -64,11 +62,9 @@ const options = {
   },
 };
 export default function LineChartVaccine({ casesType  ,vaccineCountry,countries , value, onVaccineChange}) {
-  // console.log(vaccineCountry)
   const [data, setData] = useState({});
   const [reportType, setReportType] = useState("all");
-  const buildChartData = (data, casesType) => {
-    //   console.log(data)
+  const buildChartData = (data, ) => {
     let chartData = [];
     let lastDataPoint;
     if (data) {
@@ -76,7 +72,7 @@ export default function LineChartVaccine({ casesType  ,vaccineCountry,countries 
         if (lastDataPoint) {
           let newDataPoint = {
             x: date,
-            y: data[date] - lastDataPoint,
+            y: data[date] ,
           };
           chartData.push(newDataPoint);
         }
@@ -84,11 +80,38 @@ export default function LineChartVaccine({ casesType  ,vaccineCountry,countries 
       }
       return chartData;
     }
-    // return new_data
   }
   useEffect(() => {
     const fetchData= async () => {
-      await fetch(`https://disease.sh/v3/covid-19/vaccine/coverage/countries/${vaccineCountry}?lastdays=60`)
+       vaccineCountry === "Worldwide"
+      ? 
+      await fetch("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=45")
+      .then((response) => response.json())
+      .then((data)=>{
+         let chartData = buildChartData(data || {});
+          let customData = [];
+          switch (reportType) {
+            case "all":
+              customData = chartData;
+              break;
+            case "Yesterday":
+              customData = chartData.slice(Math.max(chartData.length - 2, 1));
+
+              break;
+            case "30":
+              customData = chartData.slice(Math.max(chartData.length - 30, 1));
+              break;
+            case "7":
+              customData = chartData.slice(Math.max(chartData.length - 7, 1));
+              break;
+
+            default:
+              customData = chartData;
+              break;
+          }
+          setData(customData);
+      })
+      : await fetch(`https://disease.sh/v3/covid-19/vaccine/coverage/countries/${vaccineCountry}?lastdays=45`)
       .then((response) => response.json())
       .then((data)=>{
          let chartData = buildChartData(data.timeline || {}, casesType);
@@ -121,8 +144,8 @@ export default function LineChartVaccine({ casesType  ,vaccineCountry,countries 
   }, [  reportType , vaccineCountry]);
   return (
     <div>
-      {/* <p className="description">{moment().format("LLLL")}</p> */}
       <Grid container spacing={3}>
+     
         <Grid
           item
           sm={6}
@@ -132,17 +155,13 @@ export default function LineChartVaccine({ casesType  ,vaccineCountry,countries 
             alignItems: "center",
           }}
         >
-           <VaccineSeletor 
-              countries={countries} 
-              value={value} 
-              onVaccineChange={onVaccineChange}
-            />
+          
           <ButtonGroup
             variant="contained"
             aria-label=" large outlined button group"
             style={{
               display: "flex",
-              marginLeft:85
+              marginLeft:65
             }}
           >
             <Button
@@ -172,10 +191,11 @@ export default function LineChartVaccine({ casesType  ,vaccineCountry,countries 
           </ButtonGroup>
           
         </Grid>
-        <Grid item sm={6} xs={12}>
-          <h2 style={{ marginBottom: 20 }}>
-          </h2>
-        </Grid>
+        <VaccineSeletor 
+              countries={countries} 
+              value={value} 
+              onVaccineChange={onVaccineChange}
+            />
       </Grid>
 
        {data?.length > 0 && (
@@ -186,7 +206,6 @@ export default function LineChartVaccine({ casesType  ,vaccineCountry,countries 
                 backgroundColor: '#DF0029',
                 borderColor: '#DF0029',
                 borderWidth: 1,
-
                 data: data,
               },
             ],

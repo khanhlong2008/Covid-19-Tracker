@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import "./App.css";
 import CountrySelector from "./Components/CountrySelector/index";
 import Summary from "./Components/Summary";
@@ -18,8 +19,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import { Map, Popup, TileLayer, Circle } from "react-leaflet";
 import numeral from "numeral";
-
-import { getDataAllCountry } from "./API/index";
+import img from "./images/tableCountry.jpg";
+import { getDataAllCountry} from "./API/index";
 const casesTypeColors = {
   cases: {
     hex: "#df1f1f",
@@ -49,9 +50,10 @@ export default function App() {
   const [loading, setLoading] = React.useState(false);
   const [sort, setSort] = React.useState(10);
   const [search, SetSearch] = React.useState("");
+  const [searchVaCCine, SetSearchVaccine] = React.useState("");
   const [mapCountries, setMapCountries] = React.useState([]);
   const [mapZoom, setMapZoom] = React.useState(3);
-  const [vaccineCountry, setInputVaccineCountry] = React.useState("vietnam");
+  const [vaccineCountry, setInputVaccineCountry] = React.useState("Worldwide");
   const [mapCenter, setMapCenter] = React.useState({
     lat: 34.80746,
     lng: -40.4796,
@@ -116,19 +118,22 @@ export default function App() {
         setMapZoom(4);
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+        }, 5000);
       });
   };
- 
-    const onVaccineChange = async (e) => {
-      const countryCode = e.target.value;  
-      setInputVaccineCountry(countryCode)
-    }
 
-  
+  const onVaccineChange = async (e) => {
+    const countryCode = e.target.value;
+    setInputVaccineCountry(countryCode);
+  };
+
   const OnSearch = (query) => {
     const char = query.toLowerCase();
     SetSearch(char);
+  };
+  const OnSearchVaccine = (query) => {
+    const char = query.toLowerCase();
+    SetSearchVaccine(char);
   };
   return (
     <BrowserRouter>
@@ -240,29 +245,43 @@ export default function App() {
                 marginRight: 20,
               }}
             >
-              Live Cases by Country
+              LIVE CASES BY COUNTRY
             </h1>
             <Grid container spacing={3}>
-              <div className="search-sort">
-                <Search OnSearch={OnSearch} />
-                <Sort onSortChange={onSortChange} value={sort} />
-              </div>
-              <TableContainer
-                component={Paper}
-                style={{ maxBlockSize: 400, marginBottom: 15 }}
-              >
-                <TableTotalCase countries={tableData} search={search} />
-              </TableContainer>
+              <Grid item sm={6} xs={12}>
+                <div className="search-sort">
+                  <Search OnSearch={OnSearch} />
+                  <Sort onSortChange={onSortChange} value={sort} />
+                </div>
+                <TableContainer
+                  component={Paper}
+                  style={{ maxBlockSize: 400, marginBottom: 15 }}
+                >
+                  <TableTotalCase countries={tableData} search={search} />
+                </TableContainer>
+              </Grid>
+              <Grid item sm={6} xs={12}>
+                <img
+                  src={img}
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    marginLeft: 60,
+                    borderRadius: "5%",
+                  }}
+                />
+              </Grid>
             </Grid>
           </div>
         </Route>
         <Route path="/vaccine" component={Vaccine}>
-          <Vaccine 
-          casesType={casesType} 
-          countries={countries} 
-          value={country} 
-          onVaccineChange={onVaccineChange}
-          vaccineCountry={vaccineCountry}
+          <Vaccine
+            countries={countries}
+            value={country}
+            onVaccineChange={onVaccineChange}
+            vaccineCountry={vaccineCountry}
+            OnSearchVaccine={OnSearchVaccine}
+            searchVaCCine={searchVaCCine}
           />
         </Route>
         <Route path="/news" component={News}></Route>

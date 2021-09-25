@@ -36,7 +36,7 @@ import {
             Country
           </InputLabel>
           <NativeSelect
-            value={value}
+            // value={value}
             onChange={onVaccineChange}
             inputProps={{
               name: "country",
@@ -44,8 +44,8 @@ import {
             }}
             className={classes.size}
           >
-            <option className="font-family-option" value="vietNam">
-            VietNam
+            <option className="font-family-option" value="Worldwide">
+            Worldwide
             </option>
             {countries.map((country, index) => (
               <option

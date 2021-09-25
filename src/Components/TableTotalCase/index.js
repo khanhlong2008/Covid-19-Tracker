@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 });
 
 export default function TableTotalCase({ countries, search }) {
-  // console.log(countries);
   const classes = useStyles();
   return (
     <Table className={classes.table} stickyHeader aria-label="sticky table">
@@ -34,26 +33,6 @@ export default function TableTotalCase({ countries, search }) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {/* {countries.map((row, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <div className="center">
-                <img src={row.countryInfo.flag} alt="" className="img" />
-                <h4>{row.country}</h4>
-              </div>
-            </TableCell>
-            <TableCell align="center" className={classes.font}>
-              <h3>
-                <NumberFormat
-                  value={row.cases}
-                  thousandSeparator={true}
-                  displayType="text"
-                />
-              </h3>
-              <h5>Last 24 hour:{}</h5>
-            </TableCell>
-          </TableRow>
-        ))} */}
         {countries
           .filter((row) => {
             return row.country.toLocaleLowerCase().includes(search);
@@ -83,7 +62,3 @@ export default function TableTotalCase({ countries, search }) {
     </Table>
   );
 }
-// if(search){
-//
-//   })
-// }

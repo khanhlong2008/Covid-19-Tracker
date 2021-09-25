@@ -50,7 +50,7 @@ class Upper extends Component {
 
     return (
       <div className="Global">
-        <h1 className="heading">Covid-19 Tracker</h1>
+        <h1 className="heading">COVID-19 TRACKER</h1>
         <div className="world-stats">{Stats}</div>
       </div>
     );

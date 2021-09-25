@@ -71,69 +71,69 @@ export default class News extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <h1>* Video</h1>
-            <div class="containerVideo">
+            <div className="containerVideo">
               <iframe
                 width="680"
                 height="307"
                 src="https://www.youtube.com/embed/_SAc24lFCms"
                 title="YouTube video player"
-                frameborder="0"
+                // frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
+                // allowfullscreen
               ></iframe>
             </div>
             <p style={{ textAlign: "center" }}> Vũ điệu 5k</p>
-            <div class="containerVideo--hand">
+            <div className="containerVideo--hand">
               <iframe
                 width="680"
                 height="307"
                 src="https://www.youtube.com/embed/91gF4lONPns"
                 title="YouTube video player"
-                frameborder="0"
+                // frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
+                // allowfullscreen
               ></iframe>
               <p style={{ textAlign: "center" }}>
                 Hướng dẫn sát khuẩn bề mặt vật dụng gia đình
               </p>
             </div>
-            <div class="containerVideo--hand">
+            <div className="containerVideo--hand">
               <iframe
                 width="680"
                 height="307"
                 src="https://www.youtube.com/embed/hmRbYLBqjyw"
                 title="YouTube video player"
-                frameborder="0"
+                // frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
+                // allowfullscreen
               ></iframe>
               <p style={{ textAlign: "center" }}>
                 Vacxin hoạt động trong cơ thể chúng ta như thế nào?
               </p>
             </div>
-            <div class="containerVideo--hand">
+            <div className="containerVideo--hand">
               <iframe
                 width="680"
                 height="507"
                 src="https://www.youtube.com/embed/7OAJCBB8Mog"
                 title="YouTube video player"
-                frameborder="0"
+                // frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
+                // allowfullscreen
               ></iframe>
               <p style={{ textAlign: "center" }}>
                 Các vắc xin Covid-19 nổi tiếng ở Việt Nam sử dụng công nghệ gì?
               </p>
             </div>
-            <div class="containerVideo--hand">
+            <div className="containerVideo--hand">
               <iframe
                 width="680"
                 height="307"
                 src="https://www.youtube.com/embed/xVtyglcXXwQ"
                 title="YouTube video player"
-                frameborder="0"
+                // frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
+                // allowfullscreen
               ></iframe>
               <p style={{ textAlign: "center" }}>
                 Các vắc xin Covid-19 nổi tiếng ở Việt Nam sử dụng công nghệ gì?

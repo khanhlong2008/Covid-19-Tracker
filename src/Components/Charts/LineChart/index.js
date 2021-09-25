@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
-// import moment from "moment";
+import moment from "moment";
 import { Button, ButtonGroup } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 
@@ -158,58 +158,11 @@ export default function LineChart({ casesType, country, countryInfo }) {
                   break;
               }
               setData(customData);
-              // console.log(data)
             });
     };
     fetchData();
   }, [casesType, country, reportType]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await fetch(
-  //       `https://disease.sh/v3/covid-19/historical/${country}?lastdays=60`
-  //     )
-  //       .then((response) => {
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         console.log(data);
-  //         let chartData = buildChartData(data.timeline || {}, casesType);
-  //         let customData = [];
-  //         switch (reportType) {
-  //           case "all":
-  //             customData = chartData;
-  //             break;
-  //           case "Yesterday":
-  //             customData = chartData.slice(Math.max(chartData.length - 2, 1));
 
-  //             break;
-  //           case "30":
-  //             customData = chartData.slice(Math.max(chartData.length - 30, 1));
-  //             break;
-  //           case "7":
-  //             customData = chartData.slice(Math.max(chartData.length - 7, 1));
-  //             break;
-
-  //           default:
-  //             customData = chartData;
-  //             break;
-  //         }
-  //         setData(customData);
-  //       });
-  //   };
-  //   fetchData();
-  // }, [casesType, country, reportType]);
-// console.log(data)
-
-  useEffect(() => {
-    if (casesType === "cases") {
-      setColor("#DF0029");
-    } else if (casesType === "recovered") {
-      setColor("#28a745");
-    } else {
-      setColor("#000000");
-    }
-  }, [casesType]);
   useEffect(() => {
     if (casesType === "cases") {
       setColor("#DF0029");
@@ -222,11 +175,13 @@ export default function LineChart({ casesType, country, countryInfo }) {
 
   return (
     <div>
-      {/* <p className="description">{moment().format("LLLL")}</p> */}
+      <h3 style={{ marginBottom: 20, textAlign: "center" }}>
+        {moment().format("LLLL")}
+      </h3>
       <Grid container spacing={3}>
         <Grid item sm={6} xs={12}>
           <h2 style={{ marginBottom: 20 }}>
-            {countryInfo.country} new {casesType}
+            {countryInfo.country} New {casesType}
           </h2>
         </Grid>
         <Grid
