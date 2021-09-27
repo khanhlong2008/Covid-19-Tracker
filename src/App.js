@@ -21,7 +21,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import { Map, Popup, TileLayer, Circle } from "react-leaflet";
 import numeral from "numeral";
-import img from "./images/tableCountry.jpg";
+// import img from "./images/tableCountry.jpg";
 import { getDataAllCountry } from "./API/index";
 import Button_Group from "./Components/ButtonGruop";
 const casesTypeColors = {
