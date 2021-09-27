@@ -23,7 +23,7 @@ export default function HighlightCart({ title, total, type, ...props }) {
   const styles = useStyles({ type });
 
   return (
-    <Grid item sm={3} xs={12} style={{ marginTop: 35 }}>
+    <Grid item sm={3} xs={12} style={{ marginTop: 20 }}>
       <Card className={styles.wrapper} onClick={props.onClick}>
         <CardContent>
           <Typography component="p" variant="body2" className={styles.title}>

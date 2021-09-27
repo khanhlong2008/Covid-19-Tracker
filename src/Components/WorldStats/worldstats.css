@@ -7,7 +7,7 @@
 
 .totalNumbers {
     font-size: 2.7rem;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: 700 !important;
     font-family: 'Nunito';
     width: 100%;
@@ -16,9 +16,10 @@
 }
 
 .about {
+    font-size:300;
     width: 100%;
     text-align: center;
-    color: rgba(255,255,255,.7);
+    color: rgba(255, 255, 255, 0.7);
     margin-top: 5%;
     font-family: "Nunito";
 }

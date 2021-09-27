@@ -11,6 +11,7 @@ const Loading = ({ loading }) => {
             display: "block",
             height: 50,
             marginTop: 200,
+            marginBottom: 200,
           }}
           src={isloading}
           alt="Loader ⚆"

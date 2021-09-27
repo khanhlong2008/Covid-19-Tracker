@@ -1,6 +1,5 @@
-import { TextField, Box, FormControl,} from "@material-ui/core";
 import React, { Component } from "react";
-
+import { Input } from 'antd';
 export default class SearchVaccine extends Component {
   state = {
     query: "",
@@ -23,27 +22,12 @@ export default class SearchVaccine extends Component {
   };
   render() {
     return (
-    
-
-      <FormControl>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 2, width: "70ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            type="text"
-            value={this.state.value}
-            onChange={this.onQueryChange}
-            placeholder="Search Country ..."
-          />
-        </Box>
-      </FormControl>
+      <Input 
+      placeholder="Search Country ..." 
+      type="text"
+      value={this.state.value}
+      onChange={this.onQueryChange}
+      />
     );
   }
 }

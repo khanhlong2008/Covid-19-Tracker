@@ -65,11 +65,8 @@ export default function VaccineCountry({ OnSearchVaccine, searchVaCCine }) {
   const classes = useStyles();
   return (
     <>
-      <h1 style={{ marginBottom: 20, textAlign: "center" }}>
-        LIVE VACCINE BY COUNTRY
-      </h1>
       <SearchVaccine OnSearchVaccine={OnSearchVaccine} />
-      <TableContainer component={Paper} style={{ maxBlockSize: 430 }}>
+      <TableContainer component={Paper} style={{ maxBlockSize: 350 , margingTop:30 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

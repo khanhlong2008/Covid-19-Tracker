@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
-import moment from "moment";
 import { Button, ButtonGroup } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
+import SearchSelected from "../../SearchSelected";
 
 const options = {
   plugins: {
@@ -62,7 +61,14 @@ const options = {
     ],
   },
 };
-export default function LineChart({ casesType, country, countryInfo }) {
+export default function LineChart({
+  casesType,
+  country,
+  countryInfo,
+  countries,
+  value,
+  onCountryChange,
+}) {
   const [data, setData] = useState({});
   const [color, setColor] = useState("cases");
   const [reportType, setReportType] = useState("all");
@@ -172,63 +178,53 @@ export default function LineChart({ casesType, country, countryInfo }) {
       setColor("#000000");
     }
   }, [casesType]);
-
   return (
     <div>
-      <h3 style={{ marginBottom: 20, textAlign: "center" }}>
-        {moment().format("LLLL")}
-      </h3>
-      <Grid container spacing={3}>
-        <Grid item sm={6} xs={12}>
-          <h2 style={{ marginBottom: 20 }}>
-            {countryInfo.country} New {casesType}
-          </h2>
-        </Grid>
-        <Grid
-          item
-          sm={6}
-          xs={12}
+      <h2 style={{ marginBottom: 20, textAlign: "center" }}>
+        {country === "Worldwide"
+          ? `Worldwide New  ${casesType}`
+          : `${countryInfo.country} New ${casesType}`}
+      </h2>
+      <div className="search-sort">
+        <SearchSelected
+          countries={countries}
+          onCountryChange={onCountryChange}
+          value={value}
+        />
+        <ButtonGroup
+          variant="contained"
+          aria-label=" large outlined button group"
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
           }}
         >
-          <ButtonGroup
-            variant="contained"
-            aria-label=" large outlined button group"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
+          <Button
+            color={reportType === "all" ? "secondary" : ""}
+            onClick={() => setReportType("all")}
           >
-            <Button
-              color={reportType === "all" ? "secondary" : ""}
-              onClick={() => setReportType("all")}
-            >
-              <h5>All</h5>
-            </Button>
-            <Button
-              color={reportType === "Yesterday" ? "secondary" : ""}
-              onClick={() => setReportType("Yesterday")}
-            >
-              <h5>Yesterday</h5>
-            </Button>
-            <Button
-              color={reportType === "7" ? "secondary" : ""}
-              onClick={() => setReportType("7")}
-            >
-              <h5>7 days</h5>
-            </Button>
-            <Button
-              color={reportType === "30" ? "secondary" : ""}
-              onClick={() => setReportType("30")}
-            >
-              <h5>30 days</h5>
-            </Button>
-          </ButtonGroup>
-        </Grid>
-      </Grid>
+            <h5>All</h5>
+          </Button>
+          <Button
+            color={reportType === "Yesterday" ? "secondary" : ""}
+            onClick={() => setReportType("Yesterday")}
+          >
+            <h5>Yesterday</h5>
+          </Button>
+          <Button
+            color={reportType === "7" ? "secondary" : ""}
+            onClick={() => setReportType("7")}
+          >
+            <h5>7 days</h5>
+          </Button>
+          <Button
+            color={reportType === "30" ? "secondary" : ""}
+            onClick={() => setReportType("30")}
+          >
+            <h5>30 days</h5>
+          </Button>
+        </ButtonGroup>
+      </div>
 
       {data?.length > 0 && (
         <Line
