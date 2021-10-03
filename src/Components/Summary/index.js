@@ -3,14 +3,13 @@ import React from "react";
 
 import LineChart from "../Charts/LineChart";
 import "../../App.css";
-import Loading from "../Loading";
+// import Loading from "../Loading";
 
 
 export default function Summary({ 
   casesType, 
   country, 
   countryInfo, 
-  loading,
 
   countries,
   onCountryChange,
@@ -28,7 +27,6 @@ export default function Summary({
           onCountryChange={onCountryChange}
           value={value}
         />
-        <Loading loading={loading} />
     </>
   );
 }

@@ -3,13 +3,14 @@ import { Select } from "antd";
 import { FormControl } from "@material-ui/core";
 const { Option } = Select;
 
-export default function SearchVaccine({ countries, onVaccineChange, value }) {
+export default function SearchVaccine({ countries, onVaccineChange, value  }) {
   return (
     <FormControl>
       <Select
+        value={value}
         onChange={onVaccineChange}
         showSearch
-        style={{ width: 300 }}
+        style={{ width: 420 }}
         placeholder="Search Country"
         optionFilterProp="children"
         filterOption={(input, option) =>

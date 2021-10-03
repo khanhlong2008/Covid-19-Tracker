@@ -19,7 +19,10 @@ body {
 }
 .App {
   font-family: "Nunito";
-  margin: 50px 50px;
+  margin:10px 50px 50px 50px;
+  box-shadow: #000000 0px 0px 8px -4px;
+  background-color: #ffff;
+
 }
 
 .margin {
@@ -28,9 +31,8 @@ body {
 .background {
  
   font-family: "Nunito";
-  background-color: #ffff;
   border-radius: 20px;
-  box-shadow: #000000 0px 0px 8px -4px;
+  
   padding: 20px;
 }
 .img {
@@ -38,12 +40,13 @@ body {
   height: 20px;
   object-fit: cover;
   margin-right: 10px;
+  border-radius: 10%;
 }
 .center {
   display: flex;
   font-family: "Nunito";
   align-items: center;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   /* justify-content: center; */
   /* display: block; */
 }
@@ -142,7 +145,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 /* map */
 map {
@@ -191,4 +194,17 @@ map {
   display:flex;
   flex-direction:column;
   margin-left: 160px;
+}
+.hightLight{
+  display:flex;
+  flex-direction: row;
+  justify-content:center;
+  margin-bottom: 30px;
+}
+.Container{
+  margin: 0 50px 0 0px;
+}
+.news{
+  height:800px;
+  width: 100%;
 }

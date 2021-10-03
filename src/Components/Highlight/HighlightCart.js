@@ -16,10 +16,15 @@ const useStyles = makeStyles({
     if (props.type === "recovered") return { borderLeft: "5px solid #28a745 " };
     else return { borderLeft: "5px solid #000000" };
   },
-  title: { fontSize: 18, marginBottom: 5 },
+  title: { fontSize: 18, marginBottom: 5},
   count: { fontWeight: "bold", fontSize: 18 },
+  today: (props) => {
+    if (props.type === "cases") return { color: "  red" };
+    if (props.type === "recovered") return { color: "  #28a745 " };
+    else return { color: "  #000000" };
+  },
 });
-export default function HighlightCart({ title, total, type, ...props }) {
+export default function HighlightCart({ title, total, type, today, ...props }) {
   const styles = useStyles({ type });
 
   return (
@@ -27,11 +32,20 @@ export default function HighlightCart({ title, total, type, ...props }) {
       <Card className={styles.wrapper} onClick={props.onClick}>
         <CardContent>
           <Typography component="p" variant="body2" className={styles.title}>
-            {title}
+            {title}<Countup end={total || 0} duration={2} separator=" " />
           </Typography>
-          <Typography component="span" variant="body2" className={styles.total}>
+          {/* <Typography component="span" variant="body2" className={styles.total}>
             <div className="font-family-option">
               <Countup end={total || 0} duration={2} separator=" " />
+            </div>
+          </Typography> */}
+          <Typography component="span" variant="body2" className={styles.today}>
+            <div className="font-family-option">
+              
+              
+              Today: + 
+              <Countup end={today || 0} duration={2} separator=" " />
+              
             </div>
           </Typography>
         </CardContent>

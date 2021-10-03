@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 import { Button, ButtonGroup } from "@material-ui/core";
 import SearchVaccine from "../../SearchSelected/SearchVaccine";
+import Loading from "../../Loading";
 const options = {
   plugins: {
     legend: {
@@ -64,9 +65,8 @@ export default function LineChartVaccine({
   casesType,
   vaccineCountry,
   countries,
-  value,
   onVaccineChange,
-  countryInfo
+  loading
 }) {
   const [data, setData] = useState({});
   const [reportType, setReportType] = useState("all");
@@ -162,12 +162,12 @@ export default function LineChartVaccine({
 
     fetchData();
   }, [reportType, vaccineCountry]);
-  console.log(countryInfo)
   return (
     <div>
+      <h2 style={{ marginBottom: 20, textAlign: "center"}}>New vaccine</h2>
       <div className="search-sort">
         <SearchVaccine
-          value={value}
+          value={vaccineCountry}
           onVaccineChange={onVaccineChange}
           countries={countries}
         />
@@ -175,33 +175,31 @@ export default function LineChartVaccine({
           variant="contained"
           aria-label=" large outlined button group"
           style={{
-            display: "flex",
-            marginLeft: 65,
           }}
         >
           <Button
-            color={reportType === "all" ? "secondary" : ""}
+            color={reportType === "all" ? "primary" : ""}
             onClick={() => setReportType("all")}
           >
             <h5>All</h5>
           </Button>
           <Button
-            color={reportType === "Yesterday" ? "secondary" : ""}
+            color={reportType === "Yesterday" ? "primary" : ""}
             onClick={() => setReportType("Yesterday")}
           >
             <h5>Yesterday</h5>
           </Button>
           <Button
-            color={reportType === "7" ? "secondary" : ""}
+            color={reportType === "7" ? "primary" : ""}
             onClick={() => setReportType("7")}
           >
-            <h5>7 days</h5>
+            <h5>7days</h5>
           </Button>
           <Button
-            color={reportType === "30" ? "secondary" : ""}
+            color={reportType === "30" ? "primary" : ""}
             onClick={() => setReportType("30")}
           >
-            <h5>30 days</h5>
+            <h5>30days</h5>
           </Button>
         </ButtonGroup>
       </div>
@@ -211,8 +209,8 @@ export default function LineChartVaccine({
           data={{
             datasets: [
               {
-                backgroundColor: "#DF0029",
-                borderColor: "#DF0029",
+                backgroundColor: "#303f9f",
+                borderColor: "#303f9f",
                 borderWidth: 1,
                 data: data,
               },
@@ -221,6 +219,8 @@ export default function LineChartVaccine({
           options={options}
         />
       )}
+       <Loading loading={loading} />
     </div>
+   
   );
 }

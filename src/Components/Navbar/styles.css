@@ -6,11 +6,10 @@
   font-family: 'Poppins', sans-serif;
 } 
 nav{
-  position: fixed; 
   display: flex;
   height: 70px;
   width: 100%;
-  position: fixed; 
+  /* position: fixed;  */
   
   background: rgba(199, 34, 34, 0.9);
   align-items: center;
@@ -81,7 +80,7 @@ input[type="checkbox"]{
     content: "\f00d";
   }
   nav ul{
-    position: fixed;
+    /* position: fixed; */
     top: 80px;
     left: -100%;
     background: #111;

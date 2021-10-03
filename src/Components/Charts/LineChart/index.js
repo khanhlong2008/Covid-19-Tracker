@@ -181,9 +181,7 @@ export default function LineChart({
   return (
     <div>
       <h2 style={{ marginBottom: 20, textAlign: "center" }}>
-        {country === "Worldwide"
-          ? `Worldwide New  ${casesType}`
-          : `${countryInfo.country} New ${casesType}`}
+        {countryInfo.country} New {casesType}
       </h2>
       <div className="search-sort">
         <SearchSelected
@@ -194,10 +192,6 @@ export default function LineChart({
         <ButtonGroup
           variant="contained"
           aria-label=" large outlined button group"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
         >
           <Button
             color={reportType === "all" ? "secondary" : ""}
@@ -215,13 +209,13 @@ export default function LineChart({
             color={reportType === "7" ? "secondary" : ""}
             onClick={() => setReportType("7")}
           >
-            <h5>7 days</h5>
+            <h5>7days</h5>
           </Button>
           <Button
             color={reportType === "30" ? "secondary" : ""}
             onClick={() => setReportType("30")}
           >
-            <h5>30 days</h5>
+            <h5>30days</h5>
           </Button>
         </ButtonGroup>
       </div>

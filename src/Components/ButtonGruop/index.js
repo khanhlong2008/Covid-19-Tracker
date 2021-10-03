@@ -17,7 +17,7 @@ export default function Button_Group({clickButtonGroup}) {
           color={click === "active-Map" ? "secondary" : ""}
           onClick={() => setClick("active-Map")}
         >
-          <h5>Map</h5>
+          <h5>Live Chart</h5>
         </Button>
         <Button
           color={click === "active-table" ? "secondary" : ""}

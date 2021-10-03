@@ -10,7 +10,7 @@ export default function SearchSelected({ countries, onCountryChange, value }) {
         onChange={onCountryChange}
         value={value}
         showSearch
-        style={{ width: 300 }}
+        style={{ width: 420 }}
         placeholder="Search Country"
         optionFilterProp="children"
         filterOption={(input, option) =>

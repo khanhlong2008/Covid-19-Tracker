@@ -10,7 +10,6 @@ import NumberFormat from "react-number-format";
 import React, { useEffect, useState } from "react";
 import "../../App.css";
 import SearchVaccine from "../Search/SearchVaccine";
-import "../../App.css";
 const useStyles = makeStyles({
   table: {
     minWidth: 350,
@@ -19,7 +18,11 @@ const useStyles = makeStyles({
     fontFamily: "Nunito",
   },
 });
-const buildData = (data) => {
+
+const buildData = (data,tableData) => {
+  let names = tableData.map((item)=>{
+    return item.country
+  })
   let new_data = data.map((item) => {
     let p = [];
     let timeline = item?.timeline;
@@ -40,6 +43,14 @@ const buildData = (data) => {
     let d = {
       ...item,
       p,
+      info :tableData[names.indexOf(item.country)]?.countryInfo.flag,
+      cases :tableData[names.indexOf(item.country)]?.cases, 
+      deaths :tableData[names.indexOf(item.country)]?.deaths,
+      recovered:tableData[names.indexOf(item.country)]?.recovered,
+      todayCases :tableData[names.indexOf(item.country)]?.todayCases, 
+      todayDeaths :tableData[names.indexOf(item.country)]?.todayDeaths,
+      todayRecovered:tableData[names.indexOf(item.country)]?.todayRecovered,
+      population:tableData[names.indexOf(item.country)]?.population,
     };
     delete d.timeline;
     return d;
@@ -47,36 +58,60 @@ const buildData = (data) => {
   return new_data;
 };
 
-export default function VaccineCountry({ OnSearchVaccine, searchVaCCine }) {
+export default function VaccineCountry({
+  OnSearchVaccine,
+  searchVaCCine,
+  value,
+  tableData,
+}) {
   const [dataTable, setDataTable] = useState([]);
-
   useEffect(() => {
     fetch(
-      "https://disease.sh/v3/covid-19/vaccine/coverage/countries?lastdays=120"
+      "https://disease.sh/v3/covid-19/vaccine/coverage/countries"
     )
       .then((response) => response.json())
       .then((data) => {
-        let lastData = buildData(data);
-
+        let lastData = buildData(data,tableData);
         setDataTable(lastData);
       });
-  }, []);
-
+  }, [tableData]);
+  
   const classes = useStyles();
   return (
     <>
-      <SearchVaccine OnSearchVaccine={OnSearchVaccine} />
-      <TableContainer component={Paper} style={{ maxBlockSize: 350 , margingTop:30 }}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <div className="search-sort">
+        <SearchVaccine OnSearchVaccine={OnSearchVaccine} value={value} />
+      </div>
+      <TableContainer
+        component={Paper}
+        style={{ maxBlockSize: 500, margingTop: 27 }}
+      >
+        <Table sx={{ minWidth: 650 }}  stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>
                 {" "}
-                <h3 className={classes.font}>Country</h3>
+                <h4 className={classes.font}>Country</h4>
               </TableCell>
-              <TableCell align="right">
+              <TableCell>
                 {" "}
-                <h3 className={classes.font}>Vaccine</h3>
+                <h4 align="center" className={classes.font}>Population</h4>
+              </TableCell>
+              <TableCell align="center">
+                {" "}
+                <h4 className={classes.font}>Cases</h4>
+              </TableCell>
+              <TableCell align="center">
+                {" "}
+                <h4 className={classes.font}>Deaths</h4>
+              </TableCell>
+              <TableCell align="center">
+                {" "}
+                <h4 className={classes.font}>Recovered</h4>
+              </TableCell>
+              <TableCell align="center">
+                {" "}
+                <h4 className={classes.font}>Vaccine</h4>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -92,11 +127,79 @@ export default function VaccineCountry({ OnSearchVaccine, searchVaCCine }) {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th">
-                      <h4>{data.country}</h4>
+                      <div className="center">
+                   
+                            <img
+                              src={data.info}
+                              alt=""
+                              className="img"
+                            />
+                    
+                        <h5>{data.country}</h5>
+                      </div>
                     </TableCell>
-
+                                          {/* <h6>Today: Population: {data.population}</h6> */}
+                                          <TableCell
+                      align="center"
+                      component="th"
+                      scope="row"
+                      className={classes.font}
+                    >
+                      <h5>
+                        <NumberFormat
+                          value={data.population}
+                          thousandSeparator={true}
+                          displayType="text"
+                        />
+                      </h5>
+                    </TableCell>
                     <TableCell
-                      align="right"
+                      align="center"
+                      component="th"
+                      scope="row"
+                      className={classes.font}
+                    >
+                      <h5>
+                        <NumberFormat
+                          value={data.cases}
+                          thousandSeparator={true}
+                          displayType="text"
+                        />
+                      </h5>
+                      <h6>Today: {data.todayCases}</h6>
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      component="th"
+                      scope="row"
+                      className={classes.font}
+                    >
+                      <h5>
+                        <NumberFormat
+                          value={data.deaths}
+                          thousandSeparator={true}
+                          displayType="text"
+                        />
+                      </h5>
+                      <h6>Today: {data.todayDeaths}</h6>
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      component="th"
+                      scope="row"
+                      className={classes.font}
+                    >
+                      <h5>
+                        <NumberFormat
+                          value={data.recovered}
+                          thousandSeparator={true}
+                          displayType="text"
+                        />
+                      </h5>
+                      <h6>Today: {data.todayRecovered}</h6>
+                    </TableCell>
+                    <TableCell
+                      align="center"
                       component="th"
                       scope="row"
                       className={classes.font}
@@ -109,6 +212,7 @@ export default function VaccineCountry({ OnSearchVaccine, searchVaCCine }) {
                         />
                       </h5>
                     </TableCell>
+                    
                   </TableRow>
                 );
               })}
