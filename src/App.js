@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 /* eslint-disable jsx-a11y/alt-text */
 // import moment from "moment";
+import { BrowserRouter ,Switch , Route } from 'react-router-dom'
 import "./App.css";
 // import Loading from "./Components/Loading";
 import Summary from "./Components/Summary";
@@ -11,6 +12,7 @@ import {  Grid } from "@material-ui/core";
 // import TableTotalCase from "./Components/TableTotalCase";
 import HighlightCart from "./Components/Highlight/HighlightCart";
 // import Search from "./Components/Search";
+import News from './Components/News/News'
 import Nav from "./Components/Navbar";
 import VaccineCountry from "./Components/TableVaccine/VaccineCountry";
 import "leaflet/dist/leaflet.css";
@@ -123,7 +125,7 @@ export default function App() {
     SetSearchVaccine(char);
   };
   return (
-    <>
+    <BrowserRouter>
       <Nav />
       <Map
         center={mapCenter}
@@ -169,6 +171,8 @@ export default function App() {
           </Circle>
         ))}
       </Map>
+      <Switch  >
+        <Route path="/" exact>
       <div className="background App">
         <Button_Group clickButtonGroup={clickButtonGroup} style={{marginBottom:20}}/>
         {click === "active-Map" ? (
@@ -252,11 +256,9 @@ export default function App() {
           </>
         )}
       </div>
-      <div className="background App">
-        <div className="news">
-          
-        </div>
-      </div>
-    </>
+      </Route>
+      <Route path="/news" component={News}></Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
