@@ -35,21 +35,21 @@ export default class Nav extends Component {
               <ul className="nav__list">
                 <Link to="/">
                   <li className="nav__item">
-                    <a href="#" className="nav__link ">
+                    <a className="nav__link ">
                       Home
                     </a>
                   </li>
                 </Link>
                 <Link to="/news">
                   <li className="nav__item">
-                    <a href="#" className="nav__link">
+                    <a  className="nav__link">
                       News
                     </a>
                   </li>
                 </Link>
                 <Link to="/5k">
                   <li className="nav__item">
-                    <a href="#" className="nav__link">
+                    <a  className="nav__link">
                       Message 5K
                     </a>
                   </li>
@@ -66,18 +66,6 @@ export default class Nav extends Component {
                 </li> */}
               </ul>
             </div>
-
-            {/* <div className="nav__social">
-              <a href="#" className="nav__social-icon">
-                <ion-icon name="logo-linkedin"></ion-icon>
-              </a>
-              <a href="#" className="nav__social-icon">
-                <ion-icon name="logo-github"></ion-icon>
-              </a>
-              <a href="#" className="nav__social-icon">
-                <ion-icon name="logo-behance"></ion-icon>
-              </a>
-            </div> */}
           </div>
         </nav>
       </header>

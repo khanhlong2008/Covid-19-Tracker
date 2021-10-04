@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import Table from "@material-ui/core/Table";
+// import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -10,6 +10,9 @@ import NumberFormat from "react-number-format";
 import React, { useEffect, useState } from "react";
 import "../../App.css";
 import SearchVaccine from "../Search/SearchVaccine";
+import { Table, Input, Button, Space  } from 'antd';
+// import Highlighter from 'react-highlight-words';
+// import { SearchOutlined } from '@ant-design/icons';
 const useStyles = makeStyles({
   table: {
     minWidth: 350,
@@ -19,10 +22,10 @@ const useStyles = makeStyles({
   },
 });
 
-const buildData = (data,tableData) => {
-  let names = tableData.map((item)=>{
-    return item.country
-  })
+const buildData = (data, tableData) => {
+  let names = tableData.map((item) => {
+    return item.country;
+  });
   let new_data = data.map((item) => {
     let p = [];
     let timeline = item?.timeline;
@@ -43,20 +46,42 @@ const buildData = (data,tableData) => {
     let d = {
       ...item,
       p,
-      info :tableData[names.indexOf(item.country)]?.countryInfo.flag,
-      cases :tableData[names.indexOf(item.country)]?.cases, 
-      deaths :tableData[names.indexOf(item.country)]?.deaths,
-      recovered:tableData[names.indexOf(item.country)]?.recovered,
-      todayCases :tableData[names.indexOf(item.country)]?.todayCases, 
-      todayDeaths :tableData[names.indexOf(item.country)]?.todayDeaths,
-      todayRecovered:tableData[names.indexOf(item.country)]?.todayRecovered,
-      population:tableData[names.indexOf(item.country)]?.population,
+      info: tableData[names.indexOf(item.country)]?.countryInfo.flag,
+      cases: tableData[names.indexOf(item.country)]?.cases,
+      deaths: tableData[names.indexOf(item.country)]?.deaths,
+      recovered: tableData[names.indexOf(item.country)]?.recovered,
+      todayCases: tableData[names.indexOf(item.country)]?.todayCases,
+      todayDeaths: tableData[names.indexOf(item.country)]?.todayDeaths,
+      todayRecovered: tableData[names.indexOf(item.country)]?.todayRecovered,
+      population: tableData[names.indexOf(item.country)]?.population,
     };
     delete d.timeline;
     return d;
   });
   return new_data;
 };
+const columns = [
+  {
+    title: 'Country',
+    dataIndex: 'country',
+  },
+  {
+    title: 'Population',
+    dataIndex: 'population',
+  },
+  {
+    title: 'cases',
+    dataIndex: 'cases',
+  },
+  {
+    title: 'Recovered',
+    dataIndex: 'recovered',
+  },
+  {
+    title: 'Deaths',
+    dataIndex: 'deaths',
+  },
+];
 
 export default function VaccineCountry({
   OnSearchVaccine,
@@ -65,28 +90,45 @@ export default function VaccineCountry({
   tableData,
 }) {
   const [dataTable, setDataTable] = useState([]);
+console.log(dataTable)
   useEffect(() => {
-    fetch(
-      "https://disease.sh/v3/covid-19/vaccine/coverage/countries"
-    )
+    fetch("https://disease.sh/v3/covid-19/vaccine/coverage/countries")
       .then((response) => response.json())
       .then((data) => {
-        let lastData = buildData(data,tableData);
+        let lastData = buildData(data, tableData);
         setDataTable(lastData);
       });
   }, [tableData]);
-  
+
   const classes = useStyles();
   return (
     <>
       <div className="search-sort">
         <SearchVaccine OnSearchVaccine={OnSearchVaccine} value={value} />
       </div>
-      <TableContainer
+      <div>
+      {/* <Radio.Group
+        onChange={({ target: { value } }) => {
+          setSelectionType(value);
+        }}
+        value={selectionType}
+      >
+        <Radio value="checkbox">Checkbox</Radio>
+        <Radio value="radio">radio</Radio>
+      </Radio.Group> */}
+
+      {/* <Divider /> */}
+
+      <Table       
+        columns={columns}
+        dataSource={dataTable}
+      />
+    </div>
+      {/* <TableContainer
         component={Paper}
         style={{ maxBlockSize: 500, margingTop: 27 }}
       >
-        <Table sx={{ minWidth: 650 }}  stickyHeader aria-label="sticky table">
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>
@@ -95,7 +137,9 @@ export default function VaccineCountry({
               </TableCell>
               <TableCell>
                 {" "}
-                <h4 align="center" className={classes.font}>Population</h4>
+                <h4 align="center" className={classes.font}>
+                  Population
+                </h4>
               </TableCell>
               <TableCell align="center">
                 {" "}
@@ -128,18 +172,12 @@ export default function VaccineCountry({
                   >
                     <TableCell component="th">
                       <div className="center">
-                   
-                            <img
-                              src={data.info}
-                              alt=""
-                              className="img"
-                            />
-                    
+                        <img src={data.info} alt="" className="img" />
+
                         <h5>{data.country}</h5>
                       </div>
                     </TableCell>
-                                          {/* <h6>Today: Population: {data.population}</h6> */}
-                                          <TableCell
+                    <TableCell
                       align="center"
                       component="th"
                       scope="row"
@@ -212,13 +250,12 @@ export default function VaccineCountry({
                         />
                       </h5>
                     </TableCell>
-                    
                   </TableRow>
                 );
               })}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </>
   );
 }
