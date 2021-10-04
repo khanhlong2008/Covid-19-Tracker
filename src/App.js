@@ -20,7 +20,7 @@ import { Map, Popup, TileLayer, Circle } from "react-leaflet";
 import numeral from "numeral";
 import { getDataAllCountry } from "./API/index";
 import LineChartVaccine from "./Components/Charts/LineChartVaccine";
-import Button_Group from "./Components/ButtonGruop";
+// import Footer from './Components/Footer';
 const casesTypeColors = {
   cases: {
     hex: "#df1f1f",
@@ -58,10 +58,6 @@ export default function App() {
     lat: 34.80746,
     lng: -40.4796,
   });
-  const [click, setClick] = React.useState();
-  const clickButtonGroup = (action) => {
-    setClick(action);
-  };
   useEffect(() => {
     getDataAllCountry().then((data) => setCountryInfo(data.data));
   }, []);
@@ -171,11 +167,9 @@ export default function App() {
           </Circle>
         ))}
       </Map>
-      <Switch  >
+      <Switch>
         <Route path="/" exact>
       <div className="background App">
-        <Button_Group clickButtonGroup={clickButtonGroup} style={{marginBottom:20}}/>
-        {click === "active-Map" ? (
           <>
             {/* <h3
               style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
@@ -239,26 +233,21 @@ export default function App() {
               </Grid>
             </Grid>
           </>
-        ) : (
-          <>
-            <h2 style={{ textAlign: "center", marginBottom: 20 }}>
-              {" "}
+            <h2 style={{ textAlign: "center", marginTop: 20 }}>
               Live Table
             </h2>
-            {/* <Grid container spacing={3}> */}
             <VaccineCountry
               OnSearchVaccine={OnSearchVaccine}
               searchVaCCine={searchVaCCine}
               value={vaccineCountry}
               tableData={tableData}
             />
-            {/* </Grid> */}
-          </>
-        )}
+         
       </div>
       </Route>
-      <Route path="/news" component={News}></Route>
+      <Route path="/news" component={News}/>
       </Switch>
+      {/* <Footer/> */}
     </BrowserRouter>
   );
 }
