@@ -10,7 +10,7 @@ export default function SearchVaccine({ countries, onVaccineChange, value  }) {
         value={value}
         onChange={onVaccineChange}
         showSearch
-        style={{ width: 420 }}
+        style={{ width: 330 }}
         placeholder="Search Country"
         optionFilterProp="children"
         filterOption={(input, option) =>

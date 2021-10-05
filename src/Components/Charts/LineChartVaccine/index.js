@@ -4,7 +4,8 @@ import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 import { Button, ButtonGroup } from "@material-ui/core";
 import SearchVaccine from "../../SearchSelected/SearchVaccine";
-import Loading from "../../Loading";
+import { Grid } from "@material-ui/core";
+
 const options = {
   plugins: {
     legend: {
@@ -66,7 +67,7 @@ export default function LineChartVaccine({
   vaccineCountry,
   countries,
   onVaccineChange,
-  loading
+  loading,
 }) {
   const [data, setData] = useState({});
   const [reportType, setReportType] = useState("all");
@@ -164,53 +165,72 @@ export default function LineChartVaccine({
   }, [reportType, vaccineCountry]);
   return (
     <div>
-      <h2 style={{ marginBottom: 20, textAlign: "center"}}>New vaccine</h2>
-      <div className="search-sort">
-        <SearchVaccine
-          value={vaccineCountry}
-          onVaccineChange={onVaccineChange}
-          countries={countries}
-        />
-        <ButtonGroup
-          variant="contained"
-          aria-label=" large outlined button group"
+      <Grid container spacing={1}>
+        <Grid
+          item
+          sm={12}
+          xs={12}
           style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Button
-            color={reportType === "all" ? "primary" : ""}
-            onClick={() => setReportType("all")}
+          <SearchVaccine
+            value={vaccineCountry}
+            onVaccineChange={onVaccineChange}
+            countries={countries}
+          />
+        </Grid>
+        <Grid
+          item
+          sm={12}
+          xs={12}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ButtonGroup
+            variant="contained"
+            aria-label=" large outlined button group"
+            style={{}}
           >
-            <h5>All</h5>
-          </Button>
-          <Button
-            color={reportType === "Yesterday" ? "primary" : ""}
-            onClick={() => setReportType("Yesterday")}
-          >
-            <h5>Yesterday</h5>
-          </Button>
-          <Button
-            color={reportType === "7" ? "primary" : ""}
-            onClick={() => setReportType("7")}
-          >
-            <h5>7days</h5>
-          </Button>
-          <Button
-            color={reportType === "30" ? "primary" : ""}
-            onClick={() => setReportType("30")}
-          >
-            <h5>30days</h5>
-          </Button>
-        </ButtonGroup>
-      </div>
-
+            <Button
+              color={reportType === "all" ? "primary" : ""}
+              onClick={() => setReportType("all")}
+            >
+              <h5>All</h5>
+            </Button>
+            <Button
+              color={reportType === "Yesterday" ? "primary" : ""}
+              onClick={() => setReportType("Yesterday")}
+            >
+              <h5>Yesterday</h5>
+            </Button>
+            <Button
+              color={reportType === "7" ? "primary" : ""}
+              onClick={() => setReportType("7")}
+            >
+              <h5>7days</h5>
+            </Button>
+            <Button
+              color={reportType === "30" ? "primary" : ""}
+              onClick={() => setReportType("30")}
+            >
+              <h5>30days</h5>
+            </Button>
+          </ButtonGroup>
+        </Grid>
+      </Grid>
       {data?.length > 0 && (
         <Line
           data={{
             datasets: [
               {
-                backgroundColor: "#303f9f",
-                borderColor: "#303f9f",
+                backgroundColor: "#33CCFF",
+                borderColor: "#33CCFF",
                 borderWidth: 1,
                 data: data,
               },
@@ -219,8 +239,6 @@ export default function LineChartVaccine({
           options={options}
         />
       )}
-       <Loading loading={loading} />
     </div>
-   
   );
 }

@@ -1,20 +1,15 @@
-/* eslint-disable react/jsx-pascal-case */
-/* eslint-disable jsx-a11y/alt-text */
-// import moment from "moment";
-import { BrowserRouter ,Switch , Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-// import Loading from "./Components/Loading";
 import Summary from "./Components/Summary";
 import React, { useEffect } from "react";
-import {  Grid } from "@material-ui/core";
-// import Paper from "@material-ui/core/Paper";
-// import TableContainer from "@material-ui/core/TableContainer";
-// import TableTotalCase from "./Components/TableTotalCase";
+import { Grid } from "@material-ui/core";
 import HighlightCart from "./Components/Highlight/HighlightCart";
 // import Search from "./Components/Search";
-import News from './Components/News/News'
+import News from "./Components/News/News";
 import Nav from "./Components/Navbar";
 import VaccineCountry from "./Components/TableVaccine/VaccineCountry";
+
+import VaccineTableCountry from "./Components/TableVaccine/index";
 import "leaflet/dist/leaflet.css";
 import { Map, Popup, TileLayer, Circle } from "react-leaflet";
 import numeral from "numeral";
@@ -29,7 +24,7 @@ const casesTypeColors = {
     multiplier: 800,
   },
   recovered: {
-    hex: "#7dd71d",
+    hex: "#33CCFF",
     rgb: "rgb(125, 215, 29)",
     half_op: "rgba(125, 215, 29, 0.5)",
     multiplier: 1200,
@@ -47,9 +42,6 @@ export default function App() {
   const [country, setInputCountry] = React.useState("Worldwide");
   const [tableData, setTableData] = React.useState([]);
   const [casesType, setCasesType] = React.useState("cases");
-  // const [loading, setLoading] = React.useState(false);
-  // const [loadingVaccine, setLoadingVaccine] = React.useState(false);
-  // const [search, SetSearch] = React.useState("");
   const [searchVaCCine, SetSearchVaccine] = React.useState("");
   const [mapCountries, setMapCountries] = React.useState([]);
   const [mapZoom, setMapZoom] = React.useState(3);
@@ -81,9 +73,7 @@ export default function App() {
     getCountriesData();
   }, []);
   const onCountryChange = async (e) => {
-    // setLoading(true);
     const countryCode = e;
-    console.log(e);
     const url =
       countryCode === "Worldwide"
         ? `https://disease.sh/v3/covid-19/all`
@@ -98,24 +88,13 @@ export default function App() {
           ? setMapCenter([21, 105.8])
           : setMapCenter([data.countryInfo.lat || {}, data.countryInfo.long]);
         setMapZoom(4);
-        // setTimeout(() => {
-        //   setLoading(false);
-        // }, 500);
       });
   };
   const onVaccineChange = async (e) => {
-    // setLoadingVaccine(true);
     const countryCode = e;
     setInputVaccineCountry(countryCode);
-    // setTimeout(() => {
-    //   setLoadingVaccine(false);
-    // }, 1000);
   };
 
-  // const OnSearch = (query) => {
-  //   const char = query.toLowerCase();
-  //   SetSearch(char);
-  // };
   const OnSearchVaccine = (query) => {
     const char = query.toLowerCase();
     SetSearchVaccine(char);
@@ -123,59 +102,54 @@ export default function App() {
   return (
     <BrowserRouter>
       <Nav />
-      <Map
-        center={mapCenter}
-        zoom={mapZoom}
-        style={{ height: 430, width: "100%" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {mapCountries.map((country, index) => (
-          <Circle
-            center={[country.countryInfo.lat, country.countryInfo.long]}
-            color={casesTypeColors[casesType].hex}
-            fillColor={casesTypeColors[casesType].hex}
-            fillOpacity={0.4}
-            radius={
-              Math.sqrt(country[casesType]) *
-              casesTypeColors[casesType].multiplier
-            }
-            key={index}
-          >
-            <Popup>
-              <div className="info-container">
-                <div
-                  className="info-flag"
-                  style={{
-                    backgroundImage: `url(${country.countryInfo.flag})`,
-                  }}
-                ></div>
-                <div className="info-name">{country.country}</div>
-                <div className="info-confirmed">
-                  Cases: {numeral(country.cases).format("0,0")}
-                </div>
-                <div className="info-recovered">
-                  Recovered: {numeral(country.recovered).format("0,0")}
-                </div>
-                <div className="info-deaths">
-                  Deaths: {numeral(country.deaths).format("0,0")}
-                </div>
-              </div>
-            </Popup>
-          </Circle>
-        ))}
-      </Map>
+
       <Switch>
         <Route path="/" exact>
-      <div className="background App">
-          <>
-            {/* <h3
-              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+          <div className="background App">
+            <Map
+              center={mapCenter}
+              zoom={mapZoom}
+              style={{ height: 430, width: "100%" }}
             >
-              {moment().format("LLLL")}
-            </h3> */}
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {mapCountries.map((country, index) => (
+                <Circle
+                  center={[country.countryInfo.lat, country.countryInfo.long]}
+                  color={casesTypeColors[casesType].hex}
+                  fillColor={casesTypeColors[casesType].hex}
+                  fillOpacity={0.4}
+                  radius={
+                    Math.sqrt(country[casesType]) *
+                    casesTypeColors[casesType].multiplier
+                  }
+                  key={index}
+                >
+                  <Popup>
+                    <div className="info-container">
+                      <div
+                        className="info-flag"
+                        style={{
+                          backgroundImage: `url(${country.countryInfo.flag})`,
+                        }}
+                      ></div>
+                      <div className="info-name">{country.country}</div>
+                      <div className="info-confirmed">
+                        Cases: {numeral(country.cases).format("0,0")}
+                      </div>
+                      <div className="info-recovered">
+                        Recovered: {numeral(country.recovered).format("0,0")}
+                      </div>
+                      <div className="info-deaths">
+                        Deaths: {numeral(country.deaths).format("0,0")}
+                      </div>
+                    </div>
+                  </Popup>
+                </Circle>
+              ))}
+            </Map>
             <Grid
               container
               spacing={3}
@@ -213,17 +187,30 @@ export default function App() {
                 today={countryInfo.todayDeaths}
               />
             </Grid>
+            <Summary
+              casesType={casesType}
+              country={country}
+              countryInfo={countryInfo}
+              countries={countries}
+              onCountryChange={onCountryChange}
+              value={country}
+            />
+
+            <Grid item sm={12} xs={12}>
+              <h2 style={{ textAlign: "center", marginTop: 20 }}>
+                Coronaviruss Information By Country
+              </h2>
+              <VaccineCountry
+                OnSearchVaccine={OnSearchVaccine}
+                searchVaCCine={searchVaCCine}
+                value={vaccineCountry}
+                tableData={tableData}
+              />
+            </Grid>
+          </div>
+          <div className="background App">
+            <h1 style={{ marginBottom: 20, textAlign: "center" }}>Vaccine</h1>
             <Grid container spacing={3}>
-              <Grid item sm={6} xs={12}>
-                <Summary
-                  casesType={casesType}
-                  country={country}
-                  countryInfo={countryInfo}
-                  countries={countries}
-                  onCountryChange={onCountryChange}
-                  value={country}
-                />
-              </Grid>
               <Grid item sm={6} xs={12}>
                 <LineChartVaccine
                   countries={countries}
@@ -231,21 +218,18 @@ export default function App() {
                   vaccineCountry={vaccineCountry}
                 />
               </Grid>
+              <Grid item sm={6} xs={12}>
+                <VaccineTableCountry
+                  OnSearchVaccine={OnSearchVaccine}
+                  searchVaCCine={searchVaCCine}
+                  value={vaccineCountry}
+                  tableData={tableData}
+                />
+              </Grid>
             </Grid>
-          </>
-            <h2 style={{ textAlign: "center", marginTop: 20 }}>
-              Live Table
-            </h2>
-            <VaccineCountry
-              OnSearchVaccine={OnSearchVaccine}
-              searchVaCCine={searchVaCCine}
-              value={vaccineCountry}
-              tableData={tableData}
-            />
-         
-      </div>
-      </Route>
-      <Route path="/news" component={News}/>
+          </div>
+        </Route>
+        <Route path="/news" component={News} />
       </Switch>
       {/* <Footer/> */}
     </BrowserRouter>

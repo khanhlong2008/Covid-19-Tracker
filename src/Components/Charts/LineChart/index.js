@@ -4,6 +4,8 @@ import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 import { Button, ButtonGroup } from "@material-ui/core";
 import SearchSelected from "../../SearchSelected";
+import { Grid } from "@material-ui/core";
+import { Doughnut } from "react-chartjs-2";
 
 const options = {
   plugins: {
@@ -72,6 +74,7 @@ export default function LineChart({
   const [data, setData] = useState({});
   const [color, setColor] = useState("cases");
   const [reportType, setReportType] = useState("all");
+  const [DataDoughnut, setDataDoughnut] = useState({});
   const buildChartData = (data, casesType) => {
     let chartData = [];
     let lastDataPoint;
@@ -89,11 +92,43 @@ export default function LineChart({
       return chartData;
     }
   };
+  const buildchartDoughnut = (data) => {
+    let chartData = [];
+    const rateDeaths = parseFloat((data.deaths * 100) / data.cases).toFixed(2);
+    const rateRecovery = parseFloat(
+      (data.recovered * 100) / data.cases
+    ).toFixed(2);
+    const rateCases = parseFloat((data.cases * 100) / data.population).toFixed(
+      2
+    );
+    chartData.push(rateCases, rateDeaths, rateRecovery);
+    delete chartData.lenght;
+    return chartData;
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      country === "Worldwide"
+        ? await fetch("https://disease.sh/v3/covid-19/all")
+            .then((reponse) => reponse.json())
+            .then((data) => {
+              let chartData = buildchartDoughnut(data);
+              setDataDoughnut(chartData);
+            })
+        : await fetch(`https://disease.sh/v3/covid-19/countries/${country}`)
+            .then((response) => response.json())
+            .then((data) => {
+              let chartData = buildchartDoughnut(data);
+              setDataDoughnut(chartData);
+            });
+    };
+    fetchData();
+  }, [country]);
+  console.log(DataDoughnut);
   useEffect(() => {
     const fetchData = async () => {
       country === "Worldwide"
         ? await fetch(
-            "https://disease.sh/v3/covid-19/historical/all?lastdays=60"
+            "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
           )
             .then((response) => {
               return response.json();
@@ -129,13 +164,15 @@ export default function LineChart({
               setData(customData);
             })
         : await fetch(
-            `https://disease.sh/v3/covid-19/historical/${country}?lastdays=60`
+            `https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`
           )
             .then((response) => {
               return response.json();
             })
             .then((data) => {
-              // console.log(data)
+              // if(data.time === false) {
+              //   setFetch("fetch")
+              // }
               let chartData = buildChartData(data.timeline || {}, casesType);
               let customData = [];
               switch (reportType) {
@@ -168,74 +205,130 @@ export default function LineChart({
     };
     fetchData();
   }, [casesType, country, reportType]);
-
   useEffect(() => {
     if (casesType === "cases") {
       setColor("#DF0029");
     } else if (casesType === "recovered") {
-      setColor("#28a745");
+      setColor("#33CCFF");
     } else {
       setColor("#000000");
     }
   }, [casesType]);
   return (
     <div>
-      <h2 style={{ marginBottom: 20, textAlign: "center" }}>
-        {countryInfo.country} New {casesType}
-      </h2>
-      <div className="search-sort">
-        <SearchSelected
-          countries={countries}
-          onCountryChange={onCountryChange}
-          value={value}
-        />
-        <ButtonGroup
-          variant="contained"
-          aria-label=" large outlined button group"
-        >
-          <Button
-            color={reportType === "all" ? "secondary" : ""}
-            onClick={() => setReportType("all")}
-          >
-            <h5>All</h5>
-          </Button>
-          <Button
-            color={reportType === "Yesterday" ? "secondary" : ""}
-            onClick={() => setReportType("Yesterday")}
-          >
-            <h5>Yesterday</h5>
-          </Button>
-          <Button
-            color={reportType === "7" ? "secondary" : ""}
-            onClick={() => setReportType("7")}
-          >
-            <h5>7days</h5>
-          </Button>
-          <Button
-            color={reportType === "30" ? "secondary" : ""}
-            onClick={() => setReportType("30")}
-          >
-            <h5>30days</h5>
-          </Button>
-        </ButtonGroup>
-      </div>
-
-      {data?.length > 0 && (
-        <Line
-          data={{
-            datasets: [
-              {
-                backgroundColor: color,
-                borderColor: color,
-                borderWidth: 1,
-
-                data: data,
-              },
-            ],
+      <Grid container spacing={1} style={{ marginTop: 20 }}>
+        <Grid
+          item
+          sm={12}
+          xs={12}
+          style={{
+            display: "flex",
+            justifyContent: "center",
           }}
-          options={options}
-        />
-      )}
+        >
+          <SearchSelected
+            countries={countries}
+            onCountryChange={onCountryChange}
+            value={value}
+          />
+        </Grid>
+        <Grid
+          item
+          sm={12}
+          xs={12}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ButtonGroup
+            variant="contained"
+            aria-label=" large outlined button group"
+          >
+            <Button
+              color={reportType === "all" ? "primary" : ""}
+              onClick={() => setReportType("all")}
+            >
+              <h5>All</h5>
+            </Button>
+            <Button
+              color={reportType === "Yesterday" ? "primary" : ""}
+              onClick={() => setReportType("Yesterday")}
+            >
+              <h5>Yesterday</h5>
+            </Button>
+            <Button
+              color={reportType === "7" ? "primary" : ""}
+              onClick={() => setReportType("7")}
+            >
+              <h5>7days</h5>
+            </Button>
+            <Button
+              color={reportType === "30" ? "primary" : ""}
+              onClick={() => setReportType("30")}
+            >
+              <h5>30days</h5>
+            </Button>
+          </ButtonGroup>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item sm={8} xs={12}>
+          <h2 style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}>
+            {countryInfo.country} New {casesType}
+          </h2>
+          {data?.length > 0 && (
+            <Line
+              data={{
+                datasets: [
+                  {
+                    backgroundColor: color,
+                    borderColor: color,
+                    borderWidth: 1,
+                    data: data,
+                  },
+                ],
+              }}
+              options={options}
+            />
+          )}
+        </Grid>
+        <Grid item sm={4} xs={12} style={{ marginTop: 34 }}>
+        <h2 style={{ marginBottom: 20, textAlign: "center" }}>
+        Ratio State
+          </h2>
+          <div className=" background App ">
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Cases: {DataDoughnut[0]}% - Deaths: {DataDoughnut[1]}% -
+              Recovered: {DataDoughnut[2]}%{" "}
+            </p>
+            <Doughnut
+              data={{
+                labels: ["Cases", "Deaths", "Recovered"],
+                datasets: [
+                  {
+                    lable: "#asdas",
+                    data: DataDoughnut,
+                    backgroundColor: ["#df1f1f", "#000000", "#33CCFF"],
+                  },
+                ],
+              }}
+              height={100}
+              width={900}
+              options={{
+                maintainAspectRatiof: false,
+              }}
+            />
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }

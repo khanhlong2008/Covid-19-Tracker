@@ -13,14 +13,14 @@ import React from "react";
 const useStyles = makeStyles({
   wrapper: (props) => {
     if (props.type === "cases") return { borderLeft: "5px solid red" };
-    if (props.type === "recovered") return { borderLeft: "5px solid #28a745 " };
+    if (props.type === "recovered") return { borderLeft: "5px solid #33CCFF " };
     else return { borderLeft: "5px solid #000000" };
   },
   title: { fontSize: 18, marginBottom: 5},
   count: { fontWeight: "bold", fontSize: 18 },
   today: (props) => {
     if (props.type === "cases") return { color: "  red" };
-    if (props.type === "recovered") return { color: "  #28a745 " };
+    if (props.type === "recovered") return { color: "  #33CCFF " };
     else return { color: "  #000000" };
   },
 });
