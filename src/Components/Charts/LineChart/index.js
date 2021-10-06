@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import { Line,Doughnut  } from "react-chartjs-2";
 import numeral from "numeral";
 import { Button, ButtonGroup } from "@material-ui/core";
 import SearchSelected from "../../SearchSelected";
 import { Grid } from "@material-ui/core";
-import { Doughnut } from "react-chartjs-2";
 
 const options = {
   plugins: {
@@ -94,9 +93,9 @@ export default function LineChart({
   };
   const buildchartDoughnut = (data) => {
     let chartData = [];
-    const rateDeaths = parseFloat((data.deaths * 100) / data.cases).toFixed(2);
+    const rateDeaths = parseFloat(((data.deaths)* 100) / data.cases).toFixed(2);
     const rateRecovery = parseFloat(
-      (data.recovered * 100) / data.cases
+     ( ((data.recovered )* 100) / data.cases)
     ).toFixed(2);
     const rateCases = parseFloat((data.cases * 100) / data.population).toFixed(
       2
@@ -123,12 +122,11 @@ export default function LineChart({
     };
     fetchData();
   }, [country]);
-  console.log(DataDoughnut);
   useEffect(() => {
     const fetchData = async () => {
       country === "Worldwide"
         ? await fetch(
-            "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
+            "https://disease.sh/v3/covid-19/historical/all?lastdays=180"
           )
             .then((response) => {
               return response.json();
@@ -164,7 +162,7 @@ export default function LineChart({
               setData(customData);
             })
         : await fetch(
-            `https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`
+            `https://disease.sh/v3/covid-19/historical/${country}?lastdays=180`
           )
             .then((response) => {
               return response.json();
@@ -214,6 +212,7 @@ export default function LineChart({
       setColor("#000000");
     }
   }, [casesType]);
+ 
   return (
     <div>
       <Grid container spacing={1} style={{ marginTop: 20 }}>
@@ -275,9 +274,20 @@ export default function LineChart({
       </Grid>
       <Grid container spacing={1}>
         <Grid item sm={8} xs={12}>
-          <h2 style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}>
-            {countryInfo.country} New {casesType}
-          </h2>
+          {country === "Worldwide" ? (
+            <h2
+              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+            >
+              {country} New {casesType}
+            </h2>
+          ) : (
+            <h2
+              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+            >
+              {countryInfo.country} New {casesType}
+            </h2>
+          )}
+
           {data?.length > 0 && (
             <Line
               data={{
@@ -294,10 +304,20 @@ export default function LineChart({
             />
           )}
         </Grid>
-        <Grid item sm={4} xs={12} style={{ marginTop: 34 }}>
-        <h2 style={{ marginBottom: 20, textAlign: "center" }}>
-        Ratio State
-          </h2>
+        <Grid item sm={4} xs={12} style={{ marginTop: 8 }}>
+          {country === "Worldwide" ? (
+            <h2
+              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+            >
+              {country}
+            </h2>
+          ) : (
+            <h2
+              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+            >
+              {countryInfo.country}
+            </h2>
+          )}
           <div className=" background App ">
             <p
               style={{
@@ -310,6 +330,7 @@ export default function LineChart({
               Recovered: {DataDoughnut[2]}%{" "}
             </p>
             <Doughnut
+            
               data={{
                 labels: ["Cases", "Deaths", "Recovered"],
                 datasets: [
@@ -317,6 +338,7 @@ export default function LineChart({
                     lable: "#asdas",
                     data: DataDoughnut,
                     backgroundColor: ["#df1f1f", "#000000", "#33CCFF"],
+                    
                   },
                 ],
               }}
