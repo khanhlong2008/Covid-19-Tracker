@@ -3,27 +3,22 @@ import React, { Component } from "react";
 // import icon from "../../images/tieu-diet-corona.png";
 import { Link } from "react-router-dom";
 import "../../App.css";
+
 export default class Nav extends Component {
   render() {
     return (
-      // <nav>
-      // <div className="logo">
-      //   {/* <img src={icon}  alt="logo" className="logo-virus" /> */}
-      //   COVID-19 TRACKER
-      // </div>
-
-      // </nav>
+     
       <header className="header">
         <nav className="nav" id="nav-menu">
           <Link to="/">
             <div className="logo">COVID-19 TRACKER</div>
           </Link>
           <div className="nav__content bd-grid">
-            <ion-icon
+            {/* <ion-icon
               name="close-outline"
               className="nav__close"
               id="nav-close"
-            ></ion-icon>
+            ></ion-icon> */}
 
             <div className="nav__perfil">
               <div className="nav__img">
@@ -69,6 +64,7 @@ export default class Nav extends Component {
           </div>
         </nav>
       </header>
+      
     );
   }
 }

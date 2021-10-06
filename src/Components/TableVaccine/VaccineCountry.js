@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../../App.css";
-import { Table, Input, Button, Space  } from "antd";
+import { Table, Input, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -17,8 +17,8 @@ const buildData = (data, tableData) => {
     for (let k in timeline) {
       p.push({
         x: k,
-        y:timeline[k],
-    });
+        y: timeline[k],
+      });
     }
     p.sort((current, next) => {
       let c = Date.parse(current.x);
@@ -114,8 +114,7 @@ export default class VaccineCountry extends Component {
                 searchedColumn: dataIndex,
               });
             }}
-          >
-          </Button>
+          ></Button>
         </Space>
       </div>
     ),
@@ -165,59 +164,59 @@ export default class VaccineCountry extends Component {
 
     const columns = [
       {
-        key:"country",
+        key: "country",
         title: "Country",
         dataIndex: "country",
-        width: 300,
+        // width: 300,
         ...this.getColumnSearchProps("country"),
       },
       {
-        key:"population",
+        key: "population",
         title: "Population",
         dataIndex: "population",
-        width: 300,
+        // width: 300,
         ...this.getColumnSearchProps("population"),
         sorter: (a, b) => a.population - b.population,
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"cases",
+        key: "cases",
         title: "cases",
         dataIndex: "cases",
-        width: 300,
+        // width: 300,
         // ...this.getColumnSearchProps('cases'),
         sorter: (a, b) => a.cases - b.cases,
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"recovered",
+        key: "recovered",
         title: "Recovered",
         dataIndex: "recovered",
-        width: 300,
+        // width: 300,
         // ...this.getColumnSearchProps('recovered'),
         sorter: (a, b) => a.recovered - b.recovered,
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"deaths",
+        key: "deaths",
         title: "Deaths",
         dataIndex: "deaths",
-        width: 300,
+        // width: 300,
         // ...this.getColumnSearchProps('deaths'),
         sorter: (a, b) => a.deaths - b.deaths,
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"active",
+        key: "active",
         title: "Active",
         dataIndex: "active",
-        width: 300,
+        // width: 300,
         // ...this.getColumnSearchProps('deaths'),
         sorter: (a, b) => a.active - b.active,
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"todayCases",
+        key: "todayCases",
         title: "TodayCases",
         dataIndex: "todayCases",
         // width: 300,
@@ -226,7 +225,7 @@ export default class VaccineCountry extends Component {
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"todayDeaths",
+        key: "todayDeaths",
         title: "TodayDeaths",
         dataIndex: "todayDeaths",
         // width: 300,
@@ -235,7 +234,7 @@ export default class VaccineCountry extends Component {
         sortDirections: ["descend", "ascend"],
       },
       {
-        key:"todayRecovered",
+        key: "todayRecovered",
         title: "TodayRecovered",
         dataIndex: "todayRecovered",
         // width: 300,
@@ -243,9 +242,9 @@ export default class VaccineCountry extends Component {
         sorter: (a, b) => a.todayRecovered - b.todayRecovered,
         sortDirections: ["descend", "ascend"],
       },
-      
     ];
-    return <Table columns={columns} dataSource={this.state.dataTable} />;
+    return (
+        <Table columns={columns} dataSource={this.state.dataTable} />
+    )
   }
 }
-
