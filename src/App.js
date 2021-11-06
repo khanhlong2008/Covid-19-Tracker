@@ -6,9 +6,9 @@ import { Grid } from "@material-ui/core";
 import HighlightCart from "./Components/Highlight/HighlightCart";
 // import Search from "./Components/Search";
 import News from "./Components/News/News";
-import Nav from "./Components/Navbar";
+import Page5k from "./Components/5k"
+import NavBar from "./Components/Navbar/index";
 import VaccineCountry from "./Components/TableVaccine/VaccineCountry";
-
 import VaccineTableCountry from "./Components/TableVaccine/index";
 import "leaflet/dist/leaflet.css";
 import { Map, Popup, TileLayer, Circle } from "react-leaflet";
@@ -99,9 +99,10 @@ export default function App() {
     const char = query.toLowerCase();
     SetSearchVaccine(char);
   };
+  // console.log(country)
   return (
     <BrowserRouter>
-      <Nav />
+      <NavBar />
 
       <Switch>
         <Route path="/" exact>
@@ -187,49 +188,68 @@ export default function App() {
                 today={countryInfo.todayDeaths}
               />
             </Grid>
-            <Summary
-              casesType={casesType}
-              country={country}
-              countryInfo={countryInfo}
-              countries={countries}
-              onCountryChange={onCountryChange}
-              value={country}
+          </div>
+          <Summary
+            casesType={casesType}
+            country={country}
+            countryInfo={countryInfo}
+            countries={countries}
+            onCountryChange={onCountryChange}
+            value={country}
+          />
+          <div className="background App">
+            <h2 style={{ textAlign: "center", marginTop: 20 }}>
+              Coronaviruss Information By Country
+            </h2>
+            <VaccineCountry
+              OnSearchVaccine={OnSearchVaccine}
+              searchVaCCine={searchVaCCine}
+              value={vaccineCountry}
+              tableData={tableData}
             />
-
-            <Grid item sm={12} xs={12}>
-              <h2 style={{ textAlign: "center", marginTop: 20 }}>
-                Coronaviruss Information By Country
-              </h2>
-              <VaccineCountry
-                OnSearchVaccine={OnSearchVaccine}
-                searchVaCCine={searchVaCCine}
-                value={vaccineCountry}
-                tableData={tableData}
-              />
-            </Grid>
           </div>
           <div className="background App">
-            <h1 style={{ marginBottom: 20, textAlign: "center" }}>Vaccine</h1>
-            <Grid container spacing={3}>
-              <Grid item sm={6} xs={12}>
+            <h1 style={{ marginBottom: 20, textAlign: "center" }}>
+              Live Vaccine
+            </h1>
+            <Grid container spacing={1}>
+              {/* <Grid item sm={8} xs={12}> */}
+                <LineChartVaccine
+                  countries={countries}
+                  onVaccineChange={onVaccineChange}
+                  vaccineCountry={vaccineCountry}
+                  country={country}
+                />
+              </Grid>
+              {/* <Grid item sm={6} xs={12}>
                 <LineChartVaccine
                   countries={countries}
                   onVaccineChange={onVaccineChange}
                   vaccineCountry={vaccineCountry}
                 />
-              </Grid>
-              <Grid item sm={6} xs={12}>
-                <VaccineTableCountry
-                  OnSearchVaccine={OnSearchVaccine}
-                  searchVaCCine={searchVaCCine}
-                  value={vaccineCountry}
-                  tableData={tableData}
-                />
-              </Grid>
-            </Grid>
+              // </Grid> */}
+              
+            {/* </Grid> */}
           </div>
+          <div className=" background App ">
+       
+            {" "}
+            <h1 style={{ marginBottom: 20, textAlign: "center" }}>
+              {" "}
+              Vaccine Information By Country
+            </h1>
+            <VaccineTableCountry
+              OnSearchVaccine={OnSearchVaccine}
+              searchVaCCine={searchVaCCine}
+              value={vaccineCountry}
+              tableData={tableData}
+            />
+           
+          </div>
+          
         </Route>
         <Route path="/news" component={News} />
+        <Route path="/5k" component={Page5k}/>
       </Switch>
       {/* <Footer/> */}
     </BrowserRouter>

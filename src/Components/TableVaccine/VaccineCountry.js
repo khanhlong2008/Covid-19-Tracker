@@ -159,7 +159,6 @@ export default class VaccineCountry extends Component {
     this.setState({ searchText: "" });
   };
   render() {
-    // const {dataTable} = this.state.dataTable
     // console.log(this.state.dataTable)
 
     const columns = [

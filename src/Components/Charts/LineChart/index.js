@@ -123,7 +123,6 @@ export default function LineChart({
     };
     fetchData();
   }, [country]);
-  console.log(DataDoughnut);
   useEffect(() => {
     const fetchData = async () => {
       country === "Worldwide"
@@ -214,8 +213,9 @@ export default function LineChart({
       setColor("#000000");
     }
   }, [casesType]);
+
   return (
-    <div>
+    <div className="background App">
       <Grid container spacing={1} style={{ marginTop: 20 }}>
         <Grid
           item
@@ -275,9 +275,21 @@ export default function LineChart({
       </Grid>
       <Grid container spacing={1}>
         <Grid item sm={8} xs={12}>
-          <h2 style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}>
-            {countryInfo.country} New {casesType}
-          </h2>
+        
+          {country === "Worldwide" ? (
+            <h2
+              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+            >
+              Worldwide New {casesType}
+            </h2>
+          ) : (
+            <h2
+              style={{ marginBottom: 20, textAlign: "center", marginTop: 20 }}
+            >
+              {countryInfo.country} New {casesType}
+            </h2>
+          )}
+          {/* <div className="background App"> */}
           {data?.length > 0 && (
             <Line
               data={{
@@ -293,21 +305,30 @@ export default function LineChart({
               options={options}
             />
           )}
+            {/* </div> */}
         </Grid>
-        <Grid item sm={4} xs={12} style={{ marginTop: 34 }}>
-        <h2 style={{ marginBottom: 20, textAlign: "center" }}>
-        Ratio State
-          </h2>
+        
+        <Grid item sm={4} xs={12} style={{ marginTop: 30 }}>
+          {country === "Worldwide" ? (
+            <h2 style={{ marginBottom: 20, textAlign: "center" }}>
+              Worldwide Percentage
+            </h2>
+          ) : (
+            <h2 style={{ marginBottom: 20, textAlign: "center" }}>
+              {countryInfo.country} Percentage
+            </h2>
+          )}
+
           <div className=" background App ">
             <p
               style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                fontSize:12,
               }}
             >
-              Cases: {DataDoughnut[0]}% - Deaths: {DataDoughnut[1]}% -
-              Recovered: {DataDoughnut[2]}%{" "}
+              Cases: {DataDoughnut[0]}% - Deaths: {DataDoughnut[1]}% - Recovered: {DataDoughnut[2]}%
             </p>
             <Doughnut
               data={{
@@ -320,8 +341,6 @@ export default function LineChart({
                   },
                 ],
               }}
-              height={100}
-              width={900}
               options={{
                 maintainAspectRatiof: false,
               }}

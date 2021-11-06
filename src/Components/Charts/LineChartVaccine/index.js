@@ -67,7 +67,6 @@ export default function LineChartVaccine({
   vaccineCountry,
   countries,
   onVaccineChange,
-  loading,
 }) {
   const [data, setData] = useState({});
   const [reportType, setReportType] = useState("all");
@@ -88,6 +87,7 @@ export default function LineChartVaccine({
       return chartData;
     }
   };
+ 
   useEffect(() => {
     const fetchData = async () => {
       vaccineCountry === "Worldwide"
@@ -164,7 +164,7 @@ export default function LineChartVaccine({
     fetchData();
   }, [reportType, vaccineCountry]);
   return (
-    <div>
+    <>
       <Grid container spacing={1}>
         <Grid
           item
@@ -223,22 +223,22 @@ export default function LineChartVaccine({
             </Button>
           </ButtonGroup>
         </Grid>
+          {data?.length > 0 && (
+            <Line
+              data={{
+                datasets: [
+                  {
+                    backgroundColor: "#33CCFF",
+                    borderColor: "#33CCFF",
+                    borderWidth: 1,
+                    data: data,
+                  },
+                ],
+              }}
+              options={options}
+            />
+          )}
       </Grid>
-      {data?.length > 0 && (
-        <Line
-          data={{
-            datasets: [
-              {
-                backgroundColor: "#33CCFF",
-                borderColor: "#33CCFF",
-                borderWidth: 1,
-                data: data,
-              },
-            ],
-          }}
-          options={options}
-        />
-      )}
-    </div>
+    </>
   );
 }
