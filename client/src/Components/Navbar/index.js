@@ -15,13 +15,13 @@ export default class NavBar extends Component {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to='/' activeStyle>
+            <NavLink to='/' >
             Home
           </NavLink>
-          <NavLink to='/news' activeStyle>
+            <NavLink to='/news' >
             News
           </NavLink>
-          <NavLink to='/5k' activeStyle>
+            <NavLink to='/5k' >
             5K
           </NavLink>
           {/* <NavLink to='/sign-up' activeStyle>

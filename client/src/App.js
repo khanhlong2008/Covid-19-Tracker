@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import HighlightCart from "./Components/Highlight/HighlightCart";
 // import Search from "./Components/Search";
 import News from "./Components/News/News";
-import Page5k from "./Components/5k"
+import Page5k from "./Components/5k";
 import NavBar from "./Components/Navbar/index";
 import VaccineCountry from "./Components/TableVaccine/VaccineCountry";
 import VaccineTableCountry from "./Components/TableVaccine/index";
@@ -21,20 +21,20 @@ const casesTypeColors = {
     hex: "#df1f1f",
     rgb: "rgb(204, 16, 52)",
     half_op: "rgba(204, 16, 52, 0.5)",
-    multiplier: 800,
+    multiplier: 800
   },
   recovered: {
     hex: "#33CCFF",
     rgb: "rgb(125, 215, 29)",
     half_op: "rgba(125, 215, 29, 0.5)",
-    multiplier: 1200,
+    multiplier: 1200
   },
   deaths: {
     hex: "#000000",
     rgb: "rgb(2, 0, 0",
     half_op: "rgba(15, 15, 15, 0.5)",
-    multiplier: 2000,
-  },
+    multiplier: 2000
+  }
 };
 export default function App() {
   const [countries, setCoutries] = React.useState([]);
@@ -48,7 +48,7 @@ export default function App() {
   const [vaccineCountry, setInputVaccineCountry] = React.useState("Worldwide");
   const [mapCenter, setMapCenter] = React.useState({
     lat: 34.80746,
-    lng: -40.4796,
+    lng: -40.4796
   });
   useEffect(() => {
     getDataAllCountry().then((data) => setCountryInfo(data.data));
@@ -62,7 +62,7 @@ export default function App() {
           const countries = data.map((country) => ({
             name: country.country,
             value: country.countryInfo.iso2,
-            flag: country.countryInfo.flag,
+            flag: country.countryInfo.flag
           }));
           setCoutries(countries);
           setTableData(data);
@@ -133,7 +133,7 @@ export default function App() {
                       <div
                         className="info-flag"
                         style={{
-                          backgroundImage: `url(${country.countryInfo.flag})`,
+                          backgroundImage: `url(${country.countryInfo.flag})`
                         }}
                       ></div>
                       <div className="info-name">{country.country}</div>
@@ -157,7 +157,7 @@ export default function App() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <HighlightCart
@@ -214,25 +214,24 @@ export default function App() {
             </h1>
             <Grid container spacing={1}>
               {/* <Grid item sm={8} xs={12}> */}
-                <LineChartVaccine
-                  countries={countries}
-                  onVaccineChange={onVaccineChange}
-                  vaccineCountry={vaccineCountry}
-                  country={country}
-                />
-              </Grid>
-              {/* <Grid item sm={6} xs={12}>
+              <LineChartVaccine
+                countries={countries}
+                onVaccineChange={onVaccineChange}
+                vaccineCountry={vaccineCountry}
+                country={country}
+              />
+            </Grid>
+            {/* <Grid item sm={6} xs={12}>
                 <LineChartVaccine
                   countries={countries}
                   onVaccineChange={onVaccineChange}
                   vaccineCountry={vaccineCountry}
                 />
               // </Grid> */}
-              
+
             {/* </Grid> */}
           </div>
           <div className=" background App ">
-       
             {" "}
             <h1 style={{ marginBottom: 20, textAlign: "center" }}>
               {" "}
@@ -244,12 +243,10 @@ export default function App() {
               value={vaccineCountry}
               tableData={tableData}
             />
-           
           </div>
-          
         </Route>
         <Route path="/news" component={News} />
-        <Route path="/5k" component={Page5k}/>
+        <Route path="/5k" component={Page5k} />
       </Switch>
       {/* <Footer/> */}
     </BrowserRouter>
