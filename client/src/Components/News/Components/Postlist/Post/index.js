@@ -12,8 +12,10 @@ import React from 'react'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import moment from 'moment'
+import useStyles from './styles'
 
 export default function Post({ post }) {
+    const classes = useStyles();
     return (
         <Card>
             <CardHeader
@@ -26,10 +28,10 @@ export default function Post({ post }) {
                     </IconButton>
                 }
             />
-            <CardMedia image={post.attachment} title="Title" />
+            <CardMedia image={post.attachment} title="Title" className={classes.media} />
             <CardContent>
                 <Typography variant="h5" color="textPrimary">
-                    This is Title Post
+                    {post.title}
                 </Typography>
                 <Typography variant="body2" color="textPrimary" component="p">
                     {post.content}

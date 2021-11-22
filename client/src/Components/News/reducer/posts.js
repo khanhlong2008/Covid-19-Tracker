@@ -1,4 +1,4 @@
-import { getPosts, getType } from "../actions";
+import { getPosts, getType, createPost } from "../actions";
 import { INIT_STATE } from "../constant";
 
 export default function postsReducers(state = INIT_STATE.posts, action) {
@@ -19,6 +19,11 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
                 ...state,
                 isLoading: false,
             }
+        case getType(createPost.createPostsSuccess):
+            return {
+                ...state,
+                data: [...state.data, action.payload],
+            };
         default: return state;
     }
 }

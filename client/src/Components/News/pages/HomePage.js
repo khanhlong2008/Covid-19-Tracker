@@ -13,6 +13,7 @@ export default function HomePage() {
     const openCreatePostModel = React.useCallback(() => {
         dispatch(showModel())
     }, [dispatch])
+
     return (
         <Container className="">
             <PostList />

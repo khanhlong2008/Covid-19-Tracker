@@ -15,12 +15,14 @@ export default function PostList() {
     }, [dispatch])
 
     return (
-        <Grid container spacing={2} align="stretch">
-            <Grid item sm={12} xs={12}>
-                {posts.map((post) => (
-                    <Post post={post} key={post._id} />
-                ))}
-            </Grid>
+        <Grid container spacing={2}>
+
+            {posts.map((post) => (
+                <Grid key={post._id} item sm={6} xs={12}>
+                    <Post post={post} />
+                </Grid>
+            ))}
+
         </Grid>
     )
 }

@@ -1,7 +1,7 @@
 import { getType, showModel, hideModel } from "../actions";
 import { INIT_STATE } from "../constant";
 
-export default function modelReducers(state = INIT_STATE.posts, action) {
+export default function modelReducers(state = INIT_STATE.model, action) {
     switch (action.type) {
         case getType(showModel):
             return {
