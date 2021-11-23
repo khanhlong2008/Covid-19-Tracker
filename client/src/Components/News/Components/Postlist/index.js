@@ -18,7 +18,7 @@ export default function PostList() {
         <Grid container spacing={2}>
 
             {posts.map((post) => (
-                <Grid key={post._id} item sm={6} xs={12}>
+                <Grid item sm={6} xs={12}>
                     <Post post={post} />
                 </Grid>
             ))}
