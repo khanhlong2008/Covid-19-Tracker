@@ -5,5 +5,6 @@ export const INIT_STATE = {
     },
     model: {
         isShow: false,
-    }
+    },
+
 }

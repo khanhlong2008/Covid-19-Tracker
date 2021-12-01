@@ -19,5 +19,11 @@ export const updatePost = createActions({
     updatePostsSuccess: (payload) => payload,
     updatePostsFailure: (err) => err,
 })
-export const showModel = createAction('SHOW_CREATEM_POST_MODEL')
-export const hideModel = createAction('HIDE_CREATEM_POST_MODEL')
+
+
+
+
+
+export const showModel = createAction('SHOW_CREATE_POST_MODEL')
+export const hideModel = createAction('HIDE_CREATE_POST_MODEL')
+

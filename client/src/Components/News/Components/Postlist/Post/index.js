@@ -19,10 +19,11 @@ import { updatePost } from '../../../actions'
 export default function Post({ post }) {
     const classes = useStyles();
     const dispatch = useDispatch();
-
+    console.log(post)
     const onLikedBtnClick = React.useCallback(() => {
         dispatch(updatePost.updatePostsRequest({ ...post, likeCount: post.likeCount + 1 }))
     }, [dispatch, post])
+
     return (
         <Card>
             <CardHeader
@@ -41,6 +42,7 @@ export default function Post({ post }) {
                     {post.title}
                 </Typography>
                 <Typography variant="body2" color="textPrimary" component="p">
+                    <div className=""></div>
                     {post.content}
                 </Typography>
             </CardContent>

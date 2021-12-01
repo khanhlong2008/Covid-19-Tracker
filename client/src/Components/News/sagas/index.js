@@ -28,11 +28,13 @@ function* updatePostSaga(action) {
         yield put(actions.updatePost.getPostsFailure(err))
     }
 }
+
+
+
 function* mySaga() {
     yield takeLatest(actions.getPosts.getPostsRequest, fetchPostSaga)
     yield takeLatest(actions.createPost.createPostsRequest, createdPostSaga)
     yield takeLatest(actions.updatePost.updatePostsRequest, updatePostSaga)
-
 }
 
 export default mySaga;

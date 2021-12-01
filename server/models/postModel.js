@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
     author: {
       type: String,
       required: true,
-      default: 'Anonymous',
+      default: 'Admin',
     },
     attachment: String,
     likeCount: {

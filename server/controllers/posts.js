@@ -3,8 +3,8 @@ import { PostModel } from "../models/PostModel.js";
 export const getPosts = async (req, res) => {
   try {
     // const post = new PostModel({
-    //   title:"test",
-    //   content:"test",
+    //   title: "test",
+    //   content: "test",
     // })
     // post.save();
     const posts = await PostModel.find();
