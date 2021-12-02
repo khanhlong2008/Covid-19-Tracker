@@ -19,9 +19,9 @@ export default class NavBar extends Component {
             <NavLink to='/news' >
             News
           </NavLink>
-            {/* <NavLink to='/5k' >
+            <NavLink to='/5k' >
             5K
-          </NavLink> */}
+            </NavLink>
           </NavMenu>
       </Nav>
       </>

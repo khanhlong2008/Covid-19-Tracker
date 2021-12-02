@@ -13,6 +13,7 @@ import { Map, Popup, TileLayer, Circle } from "react-leaflet";
 import numeral from "numeral";
 import { getDataAllCountry } from "./API/index";
 import LineChartVaccine from "./Components/Charts/LineChartVaccine";
+import Page5k from "./Components/5k"
 const casesTypeColors = {
   cases: {
     hex: "#df1f1f",
@@ -243,7 +244,7 @@ export default function App() {
           </div>
         </Route>
         <Route path="/news" component={News} />
-        {/* <Route path="/5k" component={Page5k} /> */}
+        <Route path="/5k" component={Page5k} />
       </Switch>
     </BrowserRouter>
   );
