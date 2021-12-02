@@ -4,23 +4,24 @@ import PostList from '../Components/Postlist'
 import AddIcon from '@material-ui/icons/Add'
 import useStyles from './styles'
 import { useDispatch } from 'react-redux'
-// import { showModel } from '../actions'
-// import CreatePostModel from '../Components/CreateModels'
-
+import { showModel } from '../actions'
+import CreatePostModel from '../Components/CreateModels'
+import Header from '../Components/Header';
 export default function HomePage() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    // const openCreatePostModel = React.useCallback(() => {
-    //     dispatch(showModel())
-    // }, [dispatch])
+    const openCreatePostModel = React.useCallback(() => {
+        dispatch(showModel())
+    }, [dispatch])
 
     return (
         <Container className="">
+            <Header />
             <PostList />
-            {/* <CreatePostModel /> */}
-            {/* <Fab color="primary" className={classes.fab} onClick={openCreatePostModel}>
+            <CreatePostModel />
+            <Fab color="primary" className={classes.fab} onClick={openCreatePostModel}>
                 <AddIcon />
-            </Fab> */}
+            </Fab>
         </Container>
     )
 }
